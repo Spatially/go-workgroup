@@ -91,7 +91,6 @@ func (wg *workGroup) Pump(out chan<- Work) {
 func (wg *workGroup) Go() {
 
 	worker := func(id int) {
-		wg.Add(1)
 		defer func() {
 			wg.Done()
 		}()
@@ -126,6 +125,7 @@ func (wg *workGroup) Go() {
 		}
 	}
 
+	wg.Add(wg.options.Workers)
 	for w := 0; w < wg.options.Workers; w++ {
 		go worker(w)
 	}
