@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"time"
 
-	workgroup ".."
+	workgroup "github.com/Urban4M/go-workgroup"
 )
 
 //
