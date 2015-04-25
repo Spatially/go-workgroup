@@ -64,7 +64,7 @@ func usingWorkgroup(workers, generate int) {
 
 }
 
-// The equivolent sync.WaitGroup version.
+// The equivalent sync.WaitGroup version.
 func usingWaitGroup(workers, generate int) {
 
 	var wg sync.WaitGroup
