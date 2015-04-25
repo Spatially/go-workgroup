@@ -69,25 +69,20 @@ func usingWaitGroup(workers, generate int) {
 
 	var wg sync.WaitGroup
 
-	worker := func(worker int) func(in <-chan int) {
-		return func(in <-chan int) {
-			go func() {
-				defer wg.Done()
-
-				// This is essentially the workgroup Worker function.
-				for work := range in {
-					time.Sleep(time.Duration(rand.Int63n(1000)) * time.Millisecond)
-					log.Printf("WaitGroup: worker %d handing work %d.", worker, work)
-				}
-			}()
-		}
-	}
-
 	in := make(chan int)
 
 	wg.Add(workers)
 	for w := 0; w < workers; w++ {
-		go worker(w)(in)
+		go func(worker int, in <-chan int) {
+			defer wg.Done()
+
+			// This is essentially the workgroup Worker function.
+			for work := range in {
+				time.Sleep(time.Duration(rand.Int63n(1000)) * time.Millisecond)
+				log.Printf("WaitGroup: worker %d handing work %d.", worker, work)
+			}
+
+		}(w, in)
 	}
 
 	// This is essentially the workgroup Generator function.
