@@ -27,14 +27,14 @@ See [GoDoc](http://godoc.org/github.com/Urban4M/go-workgroup) or [Go Walker](htt
 This is a Worker function. The workgroup will start however many of these you specify. In this example, it will start one for each CPU (see 3 below).
 
 ```go
-worker := func(worker int, work workgroup.Work) {
+workhorse := func(worker int, work workgroup.Work) {
 	log.Printf("%d %+v Done : +%v", worker, work, time.Now())
 }
 ```
 
 ### 2. Define a Work-Generator function
 
-This is a Work-Generator. It simply feeds work to each `worker` goroutine as each is ready for Work. Although the Workers are goroutines, a workgroup uses sync.WaitGroup interanlly so this goroutine will block on the out channel until a Worker reads from the channel. The completion of this signals the workgroup's cleanup process (all the Workers will complete their work.)
+This is a Work-Generator. It simply feeds work to each `workhorse` goroutine as each is ready for Work. Although the Workers are goroutines, a workgroup uses sync.WaitGroup interanlly so this goroutine will block on the out channel until a Worker reads from the channel. The completion of this signals the workgroup's cleanup process (all the Workers will complete their work.)
 
 ```go
 workUnits := workgroup.Generator(func(out chan<- workgroup.Work) {
@@ -52,5 +52,5 @@ This configures and initates the workgroup.
 - `With` provides the Worker function.
 
 ```go
-workgroup.FanOut(8).Drain(workUnits).With(fanOutWorker).Go()
+workgroup.FanOut(8).Drain(workUnits).With(workhorse).Go()
 ```

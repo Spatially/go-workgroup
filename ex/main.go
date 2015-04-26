@@ -36,7 +36,7 @@ func usingWorkgroup(workers, generate int) {
 
 	// This is a Worker function. The workgroup will start however many of these
 	// you specify. In this example, it will start one for each CPU (see below).
-	fanOutWorker := func(worker int, work workgroup.Work) {
+	workhorse := func(worker int, work workgroup.Work) {
 		time.Sleep(time.Duration(rand.Int63n(1000)) * time.Millisecond)
 		log.Printf("workgroup: worker %d handing work %d.", worker, work)
 	}
@@ -57,7 +57,24 @@ func usingWorkgroup(workers, generate int) {
 	// FanOut specifies how many Workers to start.
 	// Drain specifies the Generator function.
 	// With provides the Worker function.
-	workgroup.FanOut(workers).Drain(workUnits).With(fanOutWorker).Go()
+	workgroup.FanOut(workers).Drain(workUnits).With(workhorse).Go()
+
+	// This is just to show that Go blocks.
+	log.Printf("Done: elapsed:+%v", time.Now())
+
+}
+
+// Another equivalent workgroup version but optimized for space, shaving two lines from above's.
+func usingOptimizedWorkgroup(workers, generate int) {
+
+	workgroup.FanOut(workers).Drain(workgroup.Generator(func(out chan<- workgroup.Work) {
+		for i := 0; i < generate; i++ {
+			out <- i
+		}
+	})).With(func(worker int, work workgroup.Work) {
+		time.Sleep(time.Duration(rand.Int63n(1000)) * time.Millisecond)
+		log.Printf("workgroup: worker %d handing work %d.", worker, work)
+	}).Go()
 
 	// This is just to show that Go blocks.
 	log.Printf("Done: elapsed:+%v", time.Now())
