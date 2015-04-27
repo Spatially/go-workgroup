@@ -34,7 +34,7 @@ workhorse := func(worker int, work workgroup.Work) {
 
 ### 2. Define a Work-Generator function
 
-This is a Work-Generator. It simply feeds work to each `workhorse` goroutine as each is ready for Work. Although the Workers are goroutines, a workgroup uses sync.WaitGroup interanlly so this goroutine will block on the out channel until a Worker reads from the channel. The completion of this signals the workgroup's cleanup process (all the Workers will complete their work.)
+This is a Work-Generator. It simply feeds work to each `workhorse` goroutine as each is ready for Work. Although the Workers are goroutines, a workgroup uses sync.WaitGroup internally so this goroutine will block the out channel until a Worker reads from the channel. The completion of this signals the workgroup's cleanup process (all the Workers will complete their work.)
 
 ```go
 workUnits := workgroup.Generator(func(out chan<- workgroup.Work) {
