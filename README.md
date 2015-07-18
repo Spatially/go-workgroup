@@ -5,19 +5,19 @@ Package `workgroup` is a [Go](http://golang.org) client library providing a wrap
 
 # Status
 
-[![Build Status](https://travis-ci.org/Urban4M/go-workgroup.png?branch=master)](https://travis-ci.org/Urban4M/go-workgroup)
+[![Build Status](https://travis-ci.org/Spatially/go-workgroup.png?branch=master)](https://travis-ci.org/Spatially/go-workgroup)
 
 
 # Installation
 
 ```
-go get -v github.com/Urban4M/go-workgroup
+go get -v github.com/Spatially/go-workgroup
 ```
 
 
 # Documentation
 
-See [GoDoc](http://godoc.org/github.com/Urban4M/go-workgroup) or [Go Walker](http://gowalker.org/github.com/Urban4M/go-workgroup) for automatically generated documentation.
+See [GoDoc](http://godoc.org/github.com/Spatially/go-workgroup) or [Go Walker](http://gowalker.org/github.com/Spatially/go-workgroup) for automatically generated documentation.
 
 
 # Usage

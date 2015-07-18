@@ -5,7 +5,7 @@ go:
 notificaitons:
   email:
     recipients:
-      robert@urban4m.com
+      robert@spatially.com
     on_success: change
     on_failure: always
 script:

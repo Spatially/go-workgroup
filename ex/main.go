@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	workgroup "github.com/Urban4M/go-workgroup"
+	workgroup "github.com/Spatially/go-workgroup"
 )
 
 // A comparison of workgroup vs pure sync.WaitGroup
